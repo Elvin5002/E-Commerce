@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "237619281331",
+    "project_id": "e-commerce-dadd2",
+    "storage_bucket": "e-commerce-dadd2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237619281331:android:b00d4ab9e3c73cc8b65fc6",
+        "android_client_info": {
+          "package_name": "com.elvin.e_commerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "237619281331-l9ctg96rrp8nsari8jk0bhr2v8kfovqc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqtj06Ln2GcfQ5II_gkq9J8nrEXfxQbnI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "237619281331-l9ctg96rrp8nsari8jk0bhr2v8kfovqc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
