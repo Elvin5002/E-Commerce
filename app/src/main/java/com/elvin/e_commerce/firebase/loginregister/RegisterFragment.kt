@@ -1,5 +1,6 @@
 package com.elvin.e_commerce.firebase.loginregister
 
+import android.content.Intent
 import android.nfc.Tag
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.withCreated
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.elvin.e_commerce.R
 import com.elvin.e_commerce.data.User
@@ -64,6 +66,7 @@ class RegisterFragment: Fragment(R.layout.fragment_register) {
                 when(it){
                     is Resource.Success -> {
                         binding.buttonRegisterRegister.startAnimation()
+                        binding.buttonRegisterRegister.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                     }
 
                     is Resource.Loading -> {
