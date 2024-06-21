@@ -55,5 +55,12 @@ class LoginViewModel @Inject constructor(
             }
     }
 
+    fun isUserSignedIn() : Boolean {
+        if (FirebaseAuth.getInstance().currentUser?.uid != null)
+            return true
+        return false
+
+    }
+
 
 }

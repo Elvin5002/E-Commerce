@@ -1,4 +1,4 @@
-package com.elvin.e_commerce.firebase.loginregister
+package com.elvin.e_commerce.fragments.applunch
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/login_register_graph"
-    app:startDestination="@id/introductionFragment">
+    app:startDestination="@id/splashScreen">
 
     <fragment
         android:id="@+id/introductionFragment"
-        android:name="com.elvin.e_commerce.firebase.loginregister.IntroductionFragment"
+        android:name="com.elvin.e_commerce.fragments.applunch.IntroductionFragment"
         android:label="IntroductionFragment"
         tools:layout="@layout/fragment_introduction">
         <action
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.elvin.e_commerce.firebase.loginregister.LoginFragment"
+        android:name="com.elvin.e_commerce.fragments.applunch.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.elvin.e_commerce.firebase.loginregister.RegisterFragment"
+        android:name="com.elvin.e_commerce.fragments.applunch.RegisterFragment"
         android:label="RegisterFragment"
         tools:layout="@layout/fragment_register">
         <action
@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
-        android:name="com.elvin.e_commerce.firebase.loginregister.AccountFragment"
+        android:name="com.elvin.e_commerce.fragments.applunch.AccountFragment"
         android:label="AccountFragment"
         tools:layout="@layout/fragment_account_options">
         <action
@@ -57,5 +57,18 @@
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right"
             app:popUpTo="@id/accountFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/splashScreen"
+        android:name="com.elvin.e_commerce.fragments.applunch.SplashScreen"
+        android:label="fragment_splash_screen"
+        app:enterAnim="@anim/from_bottom"
+        app:popUpTo="@id/introductionFragment"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreen_to_introductionFragment"
+            app:destination="@id/introductionFragment"
+            app:popUpTo="@id/splashScreen"
+            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>

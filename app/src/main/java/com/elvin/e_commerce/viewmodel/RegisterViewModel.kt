@@ -6,6 +6,7 @@ import com.elvin.e_commerce.utils.*
 import com.elvin.e_commerce.utils.Constats.USER_COLLECTION
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel

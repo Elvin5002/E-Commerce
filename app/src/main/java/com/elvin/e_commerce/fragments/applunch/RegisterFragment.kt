@@ -1,7 +1,5 @@
-package com.elvin.e_commerce.firebase.loginregister
+package com.elvin.e_commerce.fragments.applunch
 
-import android.content.Intent
-import android.nfc.Tag
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,26 +8,30 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.withCreated
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.elvin.e_commerce.R
+import com.elvin.e_commerce.activities.LoginRegisterActivitiy
 import com.elvin.e_commerce.data.User
 import com.elvin.e_commerce.databinding.FragmentRegisterBinding
 import com.elvin.e_commerce.utils.RegisterValidation
 import com.elvin.e_commerce.utils.Resource
-import com.elvin.e_commerce.utils.validateEmail
 import com.elvin.e_commerce.viewmodel.RegisterViewModel
+import com.elvin.e_commerce.viewmodel.auth.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.withContext
 
 private val TAG = "RegisterFragment"
 @AndroidEntryPoint
 class RegisterFragment: Fragment(R.layout.fragment_register) {
     private lateinit var binding: FragmentRegisterBinding
-    private val viewModel by viewModels<RegisterViewModel>()
+    private lateinit var viewModel: AuthViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = (activity as LoginRegisterActivitiy).viewModel
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -70,7 +72,7 @@ class RegisterFragment: Fragment(R.layout.fragment_register) {
                     }
 
                     is Resource.Loading -> {
-                        binding.buttonRegisterRegister.revertAnimation()
+                        binding.buttonRegisterRegister.startAnimation()
                     }
 
                     is Resource.Error -> {
