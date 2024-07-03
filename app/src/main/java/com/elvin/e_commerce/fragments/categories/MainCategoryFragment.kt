@@ -6,11 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.elvin.e_commerce.R
+import com.elvin.e_commerce.adapters.BestDealsAdapter
+import com.elvin.e_commerce.adapters.BestProductAdapter
 import com.elvin.e_commerce.adapters.SpecialProductsAdapter
 import com.elvin.e_commerce.databinding.FragmentMainCategoryBinding
 import com.elvin.e_commerce.utils.Resource
@@ -24,6 +28,8 @@ class MainCategoryFragment: Fragment(R.layout.fragment_main_category){
 
     private lateinit var binding: FragmentMainCategoryBinding
     private lateinit var specialProductsAdapter: SpecialProductsAdapter
+    private lateinit var bestDealsAdapter: BestDealsAdapter
+    private lateinit var bestProductAdapter: BestProductAdapter
     private val viewModel by viewModels<MainCategoryViewModel>()
 
     override fun onCreateView(
@@ -38,6 +44,8 @@ class MainCategoryFragment: Fragment(R.layout.fragment_main_category){
         super.onViewCreated(view, savedInstanceState)
 
         setupSpecialProductsRv()
+        setupBestDealsRv()
+        setupBestProductsRv()
 
         lifecycleScope.launchWhenStarted {
             viewModel.specialProducts.collectLatest {
@@ -58,6 +66,54 @@ class MainCategoryFragment: Fragment(R.layout.fragment_main_category){
                 }
             }
         }
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.bestDeals.collectLatest {
+                when (it) {
+                    is Resource.Loading -> {
+                        showLoading()
+                    }
+                    is Resource.Success -> {
+                        bestDealsAdapter.differ.submitList(it.data)
+                        hideLoading()
+                    }
+                    is Resource.Error -> {
+                        hideLoading()
+                        Log.e(TAG, it.message.toString())
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    }
+                    else -> Unit
+                }
+            }
+        }
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.bestProducts.collectLatest {
+                when (it) {
+                    is Resource.Loading -> {
+                        binding.bestProductsProgressBar.visibility = View.VISIBLE
+                    }
+                    is Resource.Success -> {
+                        bestProductAdapter.differ.submitList(it.data)
+                        binding.bestProductsProgressBar.visibility = View.GONE
+
+                    }
+                    is Resource.Error -> {
+                        Log.e(TAG, it.message.toString())
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        binding.bestProductsProgressBar.visibility = View.GONE
+                    }
+                    else -> Unit
+                }
+            }
+        }
+
+        binding.nestedScrollViewMain.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
+            if(v.getChildAt(0).bottom <= v.height + scrollY){
+                viewModel.fetchBestProducts()
+            }
+        })
+        
     }
 
     private fun hideLoading() {
@@ -73,6 +129,22 @@ class MainCategoryFragment: Fragment(R.layout.fragment_main_category){
         binding.rvSpecialProducts.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = specialProductsAdapter
+        }
+    }
+
+    private fun setupBestProductsRv() {
+        bestProductAdapter = BestProductAdapter()
+        binding.rvBestProducts.apply {
+            layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+            adapter = bestProductAdapter
+        }
+    }
+
+    private fun setupBestDealsRv(){
+        bestDealsAdapter = BestDealsAdapter()
+        binding.rvBestDealProducts.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = bestDealsAdapter
         }
     }
 
