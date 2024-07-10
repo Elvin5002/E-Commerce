@@ -20,7 +20,7 @@ class AccessoryFragment: BaseCategoryFragment() {
     lateinit var firestore: FirebaseFirestore
 
     val viewModel by viewModels<CategoryViewModel>{
-        BaseCategoryViewModelFactory(firestore, Category.Accessories)
+        BaseCategoryViewModelFactory(firestore, Category.Accessory)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

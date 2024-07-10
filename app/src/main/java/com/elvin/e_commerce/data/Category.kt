@@ -5,6 +5,6 @@ sealed class Category(val category: String) {
     object Table : Category("Table")
     object Chair : Category("Chair")
     object Furniture : Category("Furniture")
-    object Accessories : Category("Accessories")
+    object Accessory : Category("Accessory")
 
 }
