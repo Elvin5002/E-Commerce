@@ -2,8 +2,10 @@ package com.elvin.e_commerce.di
 
 import android.app.Application
 import android.content.Context.MODE_PRIVATE
+import com.elvin.e_commerce.firebase.FirebaseCommon
 import com.elvin.e_commerce.utils.Constats.INTRODUCTION_SP
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.Module
@@ -27,4 +29,11 @@ object AppModule {
     fun providesIntroductionSP(
         application: Application
     ) = application.getSharedPreferences(INTRODUCTION_SP, MODE_PRIVATE)
+
+    @Provides
+    @Singleton
+    fun providesFirebaseCommon(
+        firebaseAuth: FirebaseAuth,
+        firebaseFirestore: FirebaseFirestore
+    ) = FirebaseCommon(firebaseFirestore, firebaseAuth)
 }
