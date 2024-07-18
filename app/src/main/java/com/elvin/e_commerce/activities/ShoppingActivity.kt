@@ -35,7 +35,7 @@ class ShoppingActivity : AppCompatActivity() {
                     is Resource.Success -> {
                         val count = it.data?.size ?: 0
                         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigation)
-                        bottomNavigation.getOrCreateBadge(R.id.cardFragment).apply{
+                        bottomNavigation.getOrCreateBadge(R.id.cartFragment).apply{
                             number = count
                             backgroundColor = resources.getColor(R.color.g_blue)
                         }
