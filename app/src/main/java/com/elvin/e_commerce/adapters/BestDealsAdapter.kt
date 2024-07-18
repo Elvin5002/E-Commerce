@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.elvin.e_commerce.data.Product
 import com.elvin.e_commerce.databinding.BestDealsRvItemBinding
+import com.elvin.e_commerce.helper.getProductPrice
 
 class BestDealsAdapter: RecyclerView.Adapter<BestDealsAdapter.BestDealsViewHolder>() {
 
@@ -15,11 +16,8 @@ class BestDealsAdapter: RecyclerView.Adapter<BestDealsAdapter.BestDealsViewHolde
         fun bind(product: Product){
             binding.apply {
                 Glide.with(itemView).load(product.images[0]).into(imgBestDeal)
-                product.offerPercentage?.let {
-                    val remainingPercentage = 1f - it
-                    val priceAfterOffer = product.price * remainingPercentage
-                    tvNewPrice.text = String.format("$%.2f", priceAfterOffer)
-                }
+                val priceAfterOffer = product.offerPercentage.getProductPrice(product.price)
+                tvNewPrice.text = String.format("$%.2f", priceAfterOffer)
                 tvOldPrice.text = "$ ${product.price}"
                 tvDealProductName.text = product.name
             }

@@ -6,15 +6,6 @@
     app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/cardFragment"
-        android:name="com.elvin.e_commerce.fragments.shopping.CardFragment"
-        android:label="CardFragment"
-        tools:layout="@layout/fragment_card">
-        <action
-            android:id="@+id/action_cardFragment_to_productDetailsFragment"
-            app:destination="@id/productDetailsFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/homeFragment"
         android:name="com.elvin.e_commerce.fragments.shopping.HomeFragment"
         android:label="HomeFragment"
@@ -45,5 +36,14 @@
         <argument
             android:name="product"
             app:argType="com.elvin.e_commerce.data.Product" />
+    </fragment>
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.elvin.e_commerce.fragments.shopping.CartFragment"
+        android:label="CartFragment"
+        tools:layout="@layout/fragment_cart">
+        <action
+            android:id="@+id/action_cartFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
     </fragment>
 </navigation>

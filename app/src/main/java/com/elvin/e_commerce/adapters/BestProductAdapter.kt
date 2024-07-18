@@ -9,17 +9,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.elvin.e_commerce.data.Product
 import com.elvin.e_commerce.databinding.ProductRvItemBinding
+import com.elvin.e_commerce.helper.getProductPrice
 
 class BestProductAdapter: RecyclerView.Adapter<BestProductAdapter.BestProductViewHolder>() {
     inner class BestProductViewHolder(private val binding: ProductRvItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) {
             binding.apply {
                 Glide.with(itemView).load(product.images[0]).into(imgProduct)
-                product.offerPercentage?.let {
-                    val remainingPercentage = 1f - it
-                    val priceAfterOffer = product.price * remainingPercentage
-                    tvNewPrice.text = String.format("$%.2f", priceAfterOffer)
-                }
+                val priceAfterOffer = product.offerPercentage.getProductPrice(product.price)
+                tvNewPrice.text = String.format("$%.2f", priceAfterOffer)
+
                 if (product.offerPercentage == null){
                     tvNewPrice.visibility = View.INVISIBLE
                 }
