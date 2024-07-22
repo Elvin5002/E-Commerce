@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.elvin.e_commerce.data.CartProduct
 import com.elvin.e_commerce.firebase.FirebaseCommon
+import com.elvin.e_commerce.helper.getProductPrice
 import com.elvin.e_commerce.utils.Resource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
@@ -11,6 +12,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,6 +26,20 @@ class CartViewModel @Inject constructor(
     val cartProducts = _cartProducts.asStateFlow()
 
     private var cartProductDocuments = emptyList<DocumentSnapshot>()
+
+    val productsPrice = cartProducts.map {
+        when(it){
+            is Resource.Success -> {
+                calculatePrice(it.data!!)
+            }else -> null
+        }
+    }
+
+    private fun calculatePrice(data: List<CartProduct>): Float? {
+        return data.sumByDouble { cartProduct ->
+            (cartProduct.product.offerPercentage.getProductPrice(cartProduct.product.price)*cartProduct.quantity).toDouble()
+        }.toFloat()
+    }
 
     init {
         getCartProducts()
