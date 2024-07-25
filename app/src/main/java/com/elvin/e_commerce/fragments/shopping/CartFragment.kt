@@ -1,5 +1,6 @@
 package com.elvin.e_commerce.fragments.shopping
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +9,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.elvin.e_commerce.R
 import com.elvin.e_commerce.adapters.CartProductsAdapter
 import com.elvin.e_commerce.databinding.FragmentCartBinding
+import com.elvin.e_commerce.firebase.FirebaseCommon
 import com.elvin.e_commerce.utils.Resource
 import com.elvin.e_commerce.utils.VerticalItemDecoration
 import com.elvin.e_commerce.viewmodel.CartViewModel
@@ -40,9 +43,43 @@ class CartFragment: Fragment(R.layout.fragment_cart) {
 
         lifecycleScope.launchWhenStarted {
             viewModel.productsPrice.collectLatest { price ->
-                price.let {
+                price?.let {
                     binding.tvTotalPrice.text = "$ $price"
                 }
+            }
+        }
+
+        cartAdapter.onProductClick = {
+            val b = Bundle().apply {
+                putParcelable("product", it.product)
+            }
+
+            findNavController().navigate(R.id.action_cartFragment_to_productDetailsFragment, b)
+        }
+
+        cartAdapter.onPlusClick = {
+            viewModel.quantityChanging(it, FirebaseCommon.QuantityChanging.INCREASE)
+        }
+
+        cartAdapter.onMinusClick = {
+            viewModel.quantityChanging(it, FirebaseCommon.QuantityChanging.DECREASE)
+        }
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.deleteDialog.collectLatest {
+                val alertDialog = AlertDialog.Builder(requireContext()).apply {
+                    setTitle("Delete Product")
+                    setMessage("Are you sure you want to delete this product?")
+                    setPositiveButton("Yes") { dialog, _ ->
+                        viewModel.deleteCartProduct(it)
+                        dialog.dismiss()
+                    }
+                    setNegativeButton("No") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                }
+                alertDialog.create()
+                alertDialog.show()
             }
         }
 
@@ -92,12 +129,15 @@ class CartFragment: Fragment(R.layout.fragment_cart) {
     }
 
     private fun hideEmptyBox() {
-        binding.layoutCartEmpty.visibility = View.GONE
+        binding.apply {
+            layoutCartEmpty.visibility = View.GONE
+        }
     }
 
     private fun showEmptyBox() {
-        binding.layoutCartEmpty.visibility = View.VISIBLE
-
+        binding.apply {
+            layoutCartEmpty.visibility = View.VISIBLE
+        }
     }
 
     private fun setupCartRv() {

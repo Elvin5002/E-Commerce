@@ -27,15 +27,14 @@ class FirebaseCommon(
             val document = transaction.get(documentRef)
             val productObject = document.toObject(CartProduct::class.java)
 
-            productObject?.let {
-                val newQuantity = it.quantity + 1
-                val newProduct = it.copy(quantity = newQuantity)
+            productObject?.let { cartProduct ->
+                val newQuantity = cartProduct.quantity + 1
+                val newProduct = cartProduct.copy(quantity = newQuantity)
                 transaction.set(documentRef, newProduct)
             }
         }.addOnSuccessListener {
             onResult(documentId, null)
-        }
-        .addOnFailureListener {
+        }.addOnFailureListener {
             onResult(null, it)
         }
     }
@@ -53,10 +52,9 @@ class FirebaseCommon(
             }
         }.addOnSuccessListener {
             onResult(documentId, null)
+        }.addOnFailureListener {
+            onResult(null, it)
         }
-            .addOnFailureListener {
-                onResult(null, it)
-            }
     }
 
     enum class QuantityChanging {

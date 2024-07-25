@@ -59,10 +59,11 @@ class CartProductsAdapter : RecyclerView.Adapter<CartProductsAdapter.CartProduct
 
     override fun onBindViewHolder(holder: CartProductsViewHolder, position: Int) {
         val cartProduct = differ.currentList[position]
-        return holder.bind(cartProduct)
+        holder.bind(cartProduct)
 
         holder.itemView.setOnClickListener {
             onProductClick?.invoke(cartProduct)
+            println("Clicked")
         }
 
         holder.binding.imagePlus.setOnClickListener {
@@ -71,6 +72,7 @@ class CartProductsAdapter : RecyclerView.Adapter<CartProductsAdapter.CartProduct
 
         holder.binding.imageMinus.setOnClickListener {
             onMinusClick?.invoke(cartProduct)
+            println(cartProduct.quantity)
         }
     }
 
