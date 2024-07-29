@@ -18,7 +18,8 @@ import com.elvin.e_commerce.adapters.AddressAdapter
 import com.elvin.e_commerce.adapters.BillingProductAdapter
 import com.elvin.e_commerce.data.Address
 import com.elvin.e_commerce.data.CartProduct
-import com.elvin.e_commerce.data.OrderStatus
+import com.elvin.e_commerce.data.order.OrderStatus
+import com.elvin.e_commerce.data.order.Order
 import com.elvin.e_commerce.databinding.FragmentBillingBinding
 import com.elvin.e_commerce.utils.HorizontalItemDecoration
 import com.elvin.e_commerce.utils.Resource
@@ -129,7 +130,7 @@ class BillingFragment:  Fragment(R.layout.fragment_billing) {
                 setTitle("Order Items")
                 setMessage("Do you want to order your cart items?")
                 setPositiveButton("Yes") { dialog, _ ->
-                    val order = com.elvin.e_commerce.data.Order(
+                    val order = Order(
                         OrderStatus.Ordered.status,
                         totalPrice,
                         products,

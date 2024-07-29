@@ -2,7 +2,7 @@ package com.elvin.e_commerce.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.elvin.e_commerce.data.Order
+import com.elvin.e_commerce.data.order.Order
 import com.elvin.e_commerce.utils.Resource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
