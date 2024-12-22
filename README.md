@@ -50,9 +50,9 @@ A modern e-commerce mobile application built with **Kotlin**, designed to provid
 ---
 
 ## 🖼️ Screenshots  
-| Home Screen | Product Details | Cart |
+| Home Screen | Product Details | Cart | Search |
 |:-----------:|:---------------:|:----:|
-| ![Home Screen](app/src/main/res/drawable/home.png) | ![Product Details](res/drawble/details.png) | ![Cart](res/drawble/cart.png) |  
+| ![Home Screen](app/src/main/res/drawable/home.png) | ![Product Details](app/src/main/res/drawable/details.png) | ![Cart](app/src/main/res/drawable/cart.png) |  ![Search](app/src/main/res/drawable/search.png) |   
 
 ---
 
