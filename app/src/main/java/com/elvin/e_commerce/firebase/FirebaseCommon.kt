@@ -6,10 +6,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class FirebaseCommon(
     private val firebaseFirestore: FirebaseFirestore,
-    private val firebaseAuth: FirebaseAuth
+    firebaseAuth: FirebaseAuth
 ) {
 
-    val cartCollection = firebaseFirestore.collection("user").document(firebaseAuth.uid!!).collection("cart")
+    private val cartCollection = firebaseFirestore.collection("user").document(firebaseAuth.uid!!).collection("cart")
 
     fun addProductToCart(cartProduct: CartProduct, onResult: (CartProduct?, Exception?) -> Unit){
         cartCollection.document().set(cartProduct)
