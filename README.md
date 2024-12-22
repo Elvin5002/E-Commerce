@@ -1,5 +1,3 @@
----
-
 # E-Commerce App  
 
 A modern e-commerce mobile application built with **Kotlin**, designed to provide users with a seamless shopping experience.  
@@ -34,7 +32,7 @@ A modern e-commerce mobile application built with **Kotlin**, designed to provid
 ### Steps  
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/Elvin5002/Ecommerce-app.git
+   git clone https://github.com/Elvin5002/E-Commerce.git
    ```  
 
 2. Open the project in Android Studio.  
